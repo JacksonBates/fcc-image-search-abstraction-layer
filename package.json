@@ -1,0 +1,24 @@
+{
+  "name": "image-search-abstraction-layer",
+  "version": "1.0.0",
+  "description": "More to follow...",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JacksonBates/fcc-image-search-abstraction-layer.git"
+  },
+  "author": "Jackson Bates",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JacksonBates/fcc-image-search-abstraction-layer/issues"
+  },
+  "homepage": "https://github.com/JacksonBates/fcc-image-search-abstraction-layer#readme",
+  "dependencies": {
+    "ejs": "^2.4.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.1.18"
+  }
+}
