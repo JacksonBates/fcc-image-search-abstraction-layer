@@ -10,7 +10,7 @@
       url: url,
       type: 'GET',
       headers: {
-        Authorization: auth,
+        Authorization: 'Client-ID ' + auth,
         Accept: 'application/json'
       },
       success: function(result) {
