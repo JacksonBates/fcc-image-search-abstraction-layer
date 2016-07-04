@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/header.ejs %>
+    <script src="/scripts/scripfrip.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    var url = 'https://api.imgur.com/3/gallery/' + '<%= search %>' + '/{sort}/{page}'
+    var auth = '<%= imgCliID %>';
+    $.ajax({
+      url: url,
+      type: 'GET',
+      headers: {
+        Authorization: auth,
+        Accept: 'application/json'
+      },
+      success: function(result) {
+        var description = result.data.description;
+        alert(description);
+      }
+    });
+    </script>
+  </head>
+  <body>
+    <div class='jsonResponse'>
+
+    </div>
+  </body>
+</html>
