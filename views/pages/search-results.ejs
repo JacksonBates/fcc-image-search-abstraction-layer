@@ -4,7 +4,7 @@
     <% include ../partials/header.ejs %>
     <script src="/scripts/scripfrip.js" charset="utf-8"></script>
     <script type="text/javascript">
-    var url = 'https://api.imgur.com/3/gallery/' + '<%= search %>';
+    var url = 'https://api.imgur.com/3/gallery/' + '<%= search %>' + '/time/1';
     var auth = '<%= imgCliID %>';
     $.ajax({
       url: url,
@@ -14,8 +14,8 @@
         Accept: 'application/json'
       },
       success: function(result) {
-        var description = result.data.description;
-        alert(description);
+        //var description = result.data.description;
+        console.log(result);
       }
     });
     </script>
