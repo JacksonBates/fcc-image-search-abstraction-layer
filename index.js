@@ -1,5 +1,5 @@
 var express = require( 'express' );
-var mongo = require( 'mongodb' );
+var mongodb = require( 'mongodb' );
 var path = require( 'path' );
 var mongo = mongodb.MongoClient;
 var mongoUserPsw = process.env.MONGO_USER_PSW;
