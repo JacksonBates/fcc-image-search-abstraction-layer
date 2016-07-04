@@ -4,7 +4,7 @@
     <% include ../partials/header.ejs %>
     <script src="/scripts/scripfrip.js" charset="utf-8"></script>
     <script type="text/javascript">
-    var url = 'https://api.imgur.com/3/gallery/' + '<%= search %>' + '/{sort}/{page}'
+    var url = 'https://api.imgur.com/3/gallery/' + '<%= search %>';
     var auth = '<%= imgCliID %>';
     $.ajax({
       url: url,
