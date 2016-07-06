@@ -19,7 +19,17 @@ router.get( '/api/imagesearch/:SEARCH',  function( req, res ) {
   request(options, function( err, response, body ) {
     var json = JSON.parse(body);
     console.log(json.value);
-    res.end(JSON.stringify(json.value));
+    var arr = [];
+    function callback( element, index, array ) {
+      arr.push({
+        name: element.name,
+        url: element.contentUrl,
+        thumbnail: element.thumbnailUrl,
+        context: element.hostPageDisplayUrl
+      });
+    };
+    json.value.forEach(callback);
+    res.end(JSON.stringify(arr));
   });
 });
 
