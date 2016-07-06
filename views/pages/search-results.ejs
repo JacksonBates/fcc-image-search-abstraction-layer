@@ -2,27 +2,51 @@
 <html>
   <head>
     <% include ../partials/header.ejs %>
-    <script src="/scripts/scripfrip.js" charset="utf-8"></script>
+    <!--<script src="/scripts/scripfrip.js" charset="utf-8"></script>-->
     <script type="text/javascript">
-    var url = 'https://api.imgur.com/3/gallery/search/q=' + '<%= search %>';
-    var auth = '<%= imgCliID %>';
-    $.ajax({
-      url: url,
-      type: 'GET',
-      headers: {
-        Authorization: 'Client-ID ' + auth,
-        Accept: 'application/json'
-      },
-      success: function(result) {
-        //var description = result.data.description;
-        console.log(result);
-      }
-    });
+    $(function() {
+        var url = 'https://api.cognitive.microsoft.com/bing/v5.0/images/search?' + '';
+
+        var params = {
+            // Request parameters
+            "q": '<%= search %>',
+            "count": "10",
+            "offset": '0',
+            "mkt": "en-us",
+            "safeSearch": "Moderate",
+        };
+
+        $.ajax({
+            url: "https://api.cognitive.microsoft.com/bing/v5.0/images/search?" + $.param(params),
+            beforeSend: function(xhrObj){
+                // Request headers
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","b90e1a088e6845cc8574fbd41df574e3");
+            },
+            type: "GET",
+            // Request body
+            data: "{body}",
+        })
+        .done(function(data) {
+            console.log(data);
+            var arr = [];
+            function callback(element, index, array) {
+              arr.push({
+                name: element.name,
+                url: element.contentUrl,
+                thumbnail: element.thumbnailUrl,
+                context: element.hostPageDisplayUrl
+              });
+            }
+            data.value.forEach(callback);
+            document.body.innerHTML=JSON.stringify(arr);
+        })
+        .fail(function() {
+            alert("error");
+        });
+      });
     </script>
   </head>
   <body>
-    <div class='jsonResponse'>
 
-    </div>
   </body>
 </html>
