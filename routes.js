@@ -1,7 +1,7 @@
 var express = require( 'express' );
 var router = express.Router();
-var bingKey1 = process.env.BING_KEY_1;
-var request = require( 'request' );
+var imgCliID = process.env.IMGUR_CLIENT_ID;
+
 // Homepage for the app
 router.get( '/', function( req, res ) {
   res.render( 'pages/home' );
@@ -9,29 +9,11 @@ router.get( '/', function( req, res ) {
 
 router.get( '/api/imagesearch/:SEARCH',  function( req, res ) {
   var search = req.params.SEARCH;
-  var queryParameters = 'q=' + search + '&count=10&offset=0&mkt=en-us&safeSearch=Moderate'
-  var options = {
-    uri: 'https://api.cognitive.microsoft.com/bing/v5.0/images/search?' + queryParameters,
-    headers: {
-      'Ocp-Apim-Subscription-Key': bingKey1
-      }
-    };
-  request(options, function( err, response, body ) {
-    var json = JSON.parse(body);
-    console.log(json.value);
-    res.end(JSON.stringify(json.value));
-  });
-});
-
-router.get( '/test', function( req, res ) {
-  request({ uri: 'http://jacksonbates.wordpress.com' }, function( err, response, body ) {
-    if ( err ) {
-      throw err;
-    }
-    //console.log(response);
-    console.log(body);
-    res.end();
-  })
+  console.log(imgCliID);
+  res.render( 'pages/search-results', {
+    imgCliID: imgCliID,
+    search: search
+    });
 });
 
 // Catches invalid HTTP requests and returns 404
