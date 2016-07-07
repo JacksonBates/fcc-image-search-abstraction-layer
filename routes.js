@@ -1,7 +1,9 @@
 var express = require( 'express' );
 var router = express.Router();
+var mongodb = require( 'mongodb' );
 var bingKey1 = process.env.BING_KEY_1;
 var request = require( 'request' );
+
 // Homepage for the app
 router.get( '/', function( req, res ) {
   res.render( 'pages/home' );
@@ -9,6 +11,14 @@ router.get( '/', function( req, res ) {
 
 router.get( '/api/imagesearch/:SEARCH',  function( req, res ) {
   var search = req.params.SEARCH;
+  var db = req.db;
+  var latest = db.collection( 'latest' );
+  var date = new Date();
+  var time = date.toISOString();
+  latest.insert({
+    term: search,
+    time: time
+  });
   var offset = "";
   if (isNaN(req.query.offset)) {
     offset = '0';
@@ -40,6 +50,24 @@ router.get( '/api/imagesearch/:SEARCH',  function( req, res ) {
     };
     json.value.forEach(callback);
     res.end(JSON.stringify(arr));
+  });
+});
+
+router.get( '/api/latest/imagesearch', function( req, res ) {
+  var db = req.db;
+  var latest = db.collection( 'latest' );
+  latest.find( {}, { '_id': false } ).toArray( function( err, docs ) {
+    if ( err ) {
+      console.log('Error: unable to find latest searches in database');
+    };
+    var recentSearches = docs.reverse();
+    if ( recentSearches <= 10 ) {
+      console.log( recentSearches );
+      res.end( JSON.stringify( recentSearches ));
+    } else {
+      console.log( recentSearches.slice( 0, 10 ));
+      res.end( JSON.stringify( recentSearches.slice( 0, 10 )));
+    }
   });
 });
 
