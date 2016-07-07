@@ -22,8 +22,6 @@ mongo.connect( url, function( err, db ) {
     next();
   });
 
-  app.use( express.static( path.join( __dirname , '/public' )));
-
   // Use the routes specified in the routes file
   app.use( require( './routes' ));
   app.set( 'port', ( process.env.PORT || 5000 ));
