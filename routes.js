@@ -9,9 +9,19 @@ router.get( '/', function( req, res ) {
 
 router.get( '/api/imagesearch/:SEARCH',  function( req, res ) {
   var search = req.params.SEARCH;
-  var queryParameters = 'q=' + search + '&count=10&offset=0&mkt=en-us&safeSearch=Moderate'
+  var offset = "";
+  if (isNaN(req.query.offset)) {
+    offset = '0';
+  } else {
+    offset = req.query.offset;
+  }
+  var queryParameters = 'q=' + search +
+    '&count=10&offset=' +
+    offset +
+    '&mkt=en-us&safeSearch=Moderate';
   var options = {
-    uri: 'https://api.cognitive.microsoft.com/bing/v5.0/images/search?' + queryParameters,
+    uri: 'https://api.cognitive.microsoft.com/bing/v5.0/images/search?' +
+      queryParameters,
     headers: {
       'Ocp-Apim-Subscription-Key': bingKey1
       }
